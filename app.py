@@ -23,27 +23,27 @@ except IOError:
 lnc_client = settings['lockncharge']
 lnc_base_url = "https://api.lockncharge.io/v1"
 
-@app.before_request
 def get_bearer_token():
     global token_data
     global lnc_auth
     
+    token_data = requests.post(lnc_base_url+"/token", data = lnc_client).json()
+    lnc_auth = {"Authorization": f"Bearer {token_data['access_token']}"}
+
+@app.before_request
+def check_token():
     try:
         if "expires" in token_data:
             expires = token_data["expires"]
             now = int(time.time())
-            if expires - now < 300:
-                print("Token is expiring in < 5 min, requesting token...")
-                token_data = requests.post(lnc_base_url+"/token", data = lnc_client).json()
-                lnc_auth = {"Authorization": f"Bearer {token_data['access_token']}"}
+            if expires - now < (lnc_client['token_refresh_minutes'] * 60):
+                print(f"Token is expiring in < {lnc_client['token_refresh_minutes']} min, requesting token...")
+                get_bearer_token()
             else:
                 print(f"Token still valid ({expires - now} seconds left)")
     except NameError:
         print("Token not found, requesting token...")
-        token_data = requests.post(lnc_base_url+"/token", data = lnc_client).json()
-        lnc_auth = {"Authorization": f"Bearer {token_data['access_token']}"}
-
-        
+        get_bearer_token()
 
 
 @app.route("/")
