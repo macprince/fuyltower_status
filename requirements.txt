@@ -1,0 +1,12 @@
+certifi
+charset-normalizer
+click
+emoji
+Flask
+idna
+itsdangerous
+Jinja2
+MarkupSafe
+requests
+urllib3
+Werkzeug
