@@ -1,6 +1,7 @@
 import os
 import sys
 import json
+import time
 
 import requests
 import emoji
@@ -21,9 +22,29 @@ except IOError:
 
 lnc_client = settings['lockncharge']
 lnc_base_url = "https://api.lockncharge.io/v1"
-token_data = requests.post(lnc_base_url+"/token", data = lnc_client).json()
-lnc_auth = {"Authorization": f"Bearer {token_data['access_token']}"}
-print(token_data)
+
+@app.before_request
+def get_bearer_token():
+    global token_data
+    global lnc_auth
+    
+    try:
+        if "expires" in token_data:
+            expires = token_data["expires"]
+            now = int(time.time())
+            if expires - now < 300:
+                print("Token is expiring in < 5 min, requesting token...")
+                token_data = requests.post(lnc_base_url+"/token", data = lnc_client).json()
+                lnc_auth = {"Authorization": f"Bearer {token_data['access_token']}"}
+            else:
+                print(f"Token still valid ({expires - now} seconds left)")
+    except NameError:
+        print("Token not found, requesting token...")
+        token_data = requests.post(lnc_base_url+"/token", data = lnc_client).json()
+        lnc_auth = {"Authorization": f"Bearer {token_data['access_token']}"}
+
+        
+
 
 @app.route("/")
 def show_bays():
