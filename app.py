@@ -53,10 +53,10 @@ def show_bays():
     bays = sorted(response['items'], key = lambda i: i['bayNumber'])
     for bay in bays:
         if bay['assigned']:
-            status = emoji.emojize(':white_large_square: In Use')
+            status = ':white_large_square: In Use'
         else:
-            status = emoji.emojize(':green_square: Available')
-        status_html = status_html + f"<tr><td>{bay['bayNumber']}</td><td>{status}</td></tr>"
+            status = ':green_square: Available'
+        status_html = status_html + f"<tr><td>{bay['bayNumber']}</td><td>{emoji.emojize(status)}</td></tr>"
     output = f"""
     <!DOCTYPE html>
     <html lang="en">
