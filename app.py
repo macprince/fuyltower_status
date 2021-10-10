@@ -56,7 +56,8 @@ def show_bays():
             status = ':white_large_square: In Use'
         else:
             status = ':green_square: Available'
-        status_html = status_html + f"<tr><td>{bay['bayNumber']}</td><td>{emoji.emojize(status)}</td></tr>"
+        status_html = status_html + f"<tr><td>{bay['name']}</td><td>{emoji.emojize(status)}</td></tr>"
+        print(bay)
     output = f"""
     <!DOCTYPE html>
     <html lang="en">
