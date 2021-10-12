@@ -56,18 +56,15 @@ def show_bays():
             status = ':white_large_square: In Use'
         else:
             status = ':green_square: Available'
-        status_html = status_html + f"<tr><td>{bay['name']}</td><td>{emoji.emojize(status)}</td></tr>"
+        status_html = status_html + f"<tr><td>{bay['name']}</td><td>{emoji.emojize(status)}</td></tr>\n"
     output = f"""
     <!DOCTYPE html>
     <html lang="en">
     <head>
       <meta charset="utf-8">
-      <meta http-equiv="x-ua-compatible" content="ie=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+      <meta name="format-detection" content="telephone=no">
       <title>Charging Locker Status</title>
-
-
     </head>
     <body>
     <table>
@@ -75,7 +72,5 @@ def show_bays():
     </table>
     </body>
     </html>
-
-
     """
     return output
