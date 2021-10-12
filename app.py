@@ -26,7 +26,7 @@ lnc_base_url = "https://api.lockncharge.io/v1"
 def get_bearer_token():
     global token_data
     global lnc_auth
-    
+
     token_data = requests.post(lnc_base_url+"/token", data = lnc_client).json()
     lnc_auth = {"Authorization": f"Bearer {token_data['access_token']}"}
 
@@ -39,8 +39,8 @@ def check_token():
             if expires - now < (lnc_client['token_refresh_minutes'] * 60):
                 print(f"Token is expiring in < {lnc_client['token_refresh_minutes']} min, requesting token...")
                 get_bearer_token()
-            else:
-                print(f"Token still valid ({expires - now} seconds left)")
+            #else:
+                # print(f"Token still valid ({expires - now} seconds left)")
     except NameError:
         print("Token not found, requesting token...")
         get_bearer_token()
@@ -57,7 +57,6 @@ def show_bays():
         else:
             status = ':green_square: Available'
         status_html = status_html + f"<tr><td>{bay['name']}</td><td>{emoji.emojize(status)}</td></tr>"
-        print(bay)
     output = f"""
     <!DOCTYPE html>
     <html lang="en">
@@ -76,7 +75,7 @@ def show_bays():
     </table>
     </body>
     </html>
-    
-    
+
+
     """
     return output
