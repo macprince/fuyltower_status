@@ -2,6 +2,7 @@ import os
 import sys
 import json
 import time
+import datetime
 
 import requests
 import emoji
@@ -70,6 +71,7 @@ def show_bays():
     <table>
     {status_html}
     </table>
+    <p>Status current as of {datetime.datetime.now().strftime("%Y-%m-%d %I:%M:%S %p")}</p>
     </body>
     </html>
     """
