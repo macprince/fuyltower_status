@@ -5,9 +5,9 @@ import time
 import datetime
 
 import requests
-import emoji
 
 from flask import Flask
+from flask import render_template
 from markupsafe import escape
 
 app = Flask(__name__)
@@ -49,30 +49,8 @@ def check_token():
 
 @app.route("/")
 def show_bays():
-    status_html = ""
     response = requests.get(lnc_base_url+"/bays",headers=lnc_auth).json()
     bays = sorted(response['items'], key = lambda i: i['bayNumber'])
-    for bay in bays:
-        if bay['assigned']:
-            status = ':white_large_square: In Use'
-        else:
-            status = ':green_square: Available'
-        status_html = status_html + f"<tr><td>Bay {bay['bayNumber']}</td><td>{emoji.emojize(status)}</td></tr>\n"
-    output = f"""
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
-      <meta name="format-detection" content="telephone=no">
-      <title>Charging Locker Status</title>
-    </head>
-    <body>
-    <table>
-    {status_html}
-    </table>
-    <p>Status current as of {datetime.datetime.now().strftime("%Y-%m-%d %I:%M:%S %p")}</p>
-    </body>
-    </html>
-    """
-    return output
+    timestamp = datetime.datetime.now()
+
+    return render_template('index.html', bays=bays, timestamp=timestamp)
