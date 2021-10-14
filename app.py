@@ -11,6 +11,8 @@ from flask import render_template
 from markupsafe import escape
 
 app = Flask(__name__)
+app.jinja_env.trim_blocks = True
+app.jinja_env.lstrip_blocks = True
 
 # Load in config file
 config = os.path.abspath(os.path.join(sys.path[0],"config.json"))
