@@ -13,7 +13,9 @@
       <tr>
         <td>Bay {{bay['bayNumber']}}</td>
         <td>
-          {% if bay['assigned']: %}
+          {% if bay['offline']: %}
+          ⬛️ Offline
+          {% elif bay['assigned']: %}
           ⬜️ In Use
           {% else: %}
           🟩 Available
