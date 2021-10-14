@@ -1,7 +1,6 @@
 certifi
 charset-normalizer
 click
-emoji
 Flask
 idna
 itsdangerous
