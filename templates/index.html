@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+    <meta name="format-detection" content="telephone=no">
+    <title>Charging Locker Status</title>
+  </head>
+  <body>
+  <table>
+    <tbody>
+      {% for bay in bays: %}
+      <tr>
+        <td>Bay {{bay['bayNumber']}}</td>
+        <td>
+          {% if bay['assigned']: %}
+          ⬜️ In Use
+          {% else: %}
+          🟩 Available
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <p>Status current as of<br/>{{ timestamp.strftime("%Y-%m-%d %I:%M:%S %p") }}</p>
+  </body>
+  </html>
