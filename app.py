@@ -33,6 +33,11 @@ def get_bearer_token():
     token_data = requests.post(lnc_base_url+"/token", data = lnc_client).json()
     lnc_auth = {"Authorization": f"Bearer {token_data['access_token']}"}
 
+def get_bays():
+    response = requests.get(lnc_base_url+"/bays",headers=lnc_auth).json()
+    bays = sorted(response['items'], key = lambda i: i['bayNumber'])
+    return bays
+
 @app.before_request
 def check_token():
     try:
@@ -50,9 +55,13 @@ def check_token():
 
 
 @app.route("/")
-def show_bays():
-    response = requests.get(lnc_base_url+"/bays",headers=lnc_auth).json()
-    bays = sorted(response['items'], key = lambda i: i['bayNumber'])
+def show_bays_user():
+    bays = get_bays()
     timestamp = datetime.datetime.now()
-
     return render_template('index.html', bays=bays, timestamp=timestamp)
+
+@app.route("/admin")
+def show_bays_admin():
+    bays = get_bays()
+    timestamp = datetime.datetime.now()
+    return render_template('admin.html', bays=bays, timestamp=timestamp)
