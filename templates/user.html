@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
     <meta name="format-detection" content="telephone=no">
-    <title>Chromebook Station - User</title>
+    <title>Chromebook Station - {{bay['name']}}</title>
 </head>
 <body>
     <h1>{{bay['name']}}</h1>
@@ -14,6 +14,6 @@
     {% else: %}
     No user associated.<br/>
     {% endif %}
-    <a href="{{url_for('show_bays_admin')}}">Return to Admin</a>
+    <a href="{{url_for('show_bays_admin')}}">⬅ Return to Admin</a>
 </body>
 </html>

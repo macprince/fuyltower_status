@@ -12,7 +12,13 @@
     <tbody>
       {% for bay in bays: %}
       <tr>
-        <td><a href={{ url_for('show_bay' ,bayNumber=bay['bayNumber']) }}>{{bay['name']}}</a></td>
+        <td>
+          {% if bay['assigned']: %}
+          <a href={{ url_for('show_bay' ,bayNumber=bay['bayNumber']) }}>{{bay['name']}}</a>
+          {% else: %}
+          {{bay['name']}}
+          {% endif %}
+        </td>
         <td>
           {% if bay['offline']: %}
           ⬛️ Offline
