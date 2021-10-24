@@ -14,7 +14,7 @@
       <tr>
         <td>
           {% if bay['assigned']: %}
-          <a href={{ url_for('show_bay' ,bayNumber=bay['bayNumber']) }}>{{bay['name']}}</a>
+          <a href="{{ url_for('show_bay', bayNumber=bay['bayNumber']) }}">{{bay['name']}}</a>
           {% else: %}
           {{bay['name']}}
           {% endif %}
