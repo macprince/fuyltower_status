@@ -14,6 +14,9 @@ app = Flask(__name__)
 app.jinja_env.trim_blocks = True
 app.jinja_env.lstrip_blocks = True
 
+os.environ["TZ"] = "America/Chicago"
+time.tzset()
+
 # Load in config file
 config = os.path.abspath(os.path.join(sys.path[0],"config.json"))
 try:
@@ -37,6 +40,16 @@ def get_bays():
     response = requests.get(lnc_base_url+"/bays",headers=lnc_auth).json()
     bays = sorted(response['items'], key = lambda i: i['bayNumber'])
     return bays
+
+def get_user_by_id(userId):
+    user = requests.get(lnc_base_url+f"/station-users/{userId}",headers=lnc_auth).json()
+    return user
+
+def get_bay_user(bayNumber):
+    bays = get_bays()
+    bay = next(item for item in bays if item["bayNumber"] == int(bayNumber))
+    user = get_user_by_id(bay['assignedUserId'])
+    return user, bay
 
 @app.before_request
 def check_token():
@@ -65,3 +78,8 @@ def show_bays_admin():
     bays = get_bays()
     timestamp = datetime.datetime.now()
     return render_template('admin.html', bays=bays, timestamp=timestamp)
+
+@app.route("/admin/<bayNumber>")
+def show_bay(bayNumber):
+    user, bay = get_bay_user(bayNumber)
+    return render_template('user.html', user=user, bay=bay)
