@@ -20,7 +20,9 @@
             {% endif %}
           </td>
           <td>
-            {% if bay['offline']: %}
+            {% if not bay['locked']: %}
+            🟥 Open
+            {% elif bay['offline']: %}
             ⬛️ Offline
             {% elif bay['assigned']: %}
             ⬜️ In Use
