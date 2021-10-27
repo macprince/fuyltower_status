@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
     <meta name="format-detection" content="telephone=no">
     <title>Chromebook Station - {{bay['name']}}</title>
-</head>
-<body>
+  </head>
+  <body>
     <h1>{{bay['name']}}</h1>
     {% if user['id']: %}
     {{user['firstName']}} {{user['lastName']}} ({{user['stationCredentials']['pin']}})<br/>
@@ -15,5 +15,5 @@
     No user associated.<br/>
     {% endif %}
     <a href="{{url_for('show_bays_admin')}}">⬅ Return to Admin</a>
-</body>
+  </body>
 </html>

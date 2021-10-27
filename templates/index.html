@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
     <meta name="format-detection" content="telephone=no">
     <title>Chromebook Loaner Station Status</title>
-</head>
-<body>
+  </head>
+  <body>
     <table>
-        <tbody>
-      {% for bay in bays: %}
+      <tbody>
+        {% for bay in bays: %}
           <tr>
-              <td>Bay {{bay['bayNumber']}}</td>
-              <td>
+            <td>Bay {{bay['bayNumber']}}</td>
+            <td>
               {% if bay['offline']: %}
               ⬛️ Offline
               {% elif bay['assigned']: %}
@@ -20,11 +20,11 @@
               {% else: %}
               🟩 Available
               {% endif %}
-              </td>
+            </td>
           </tr>
-      {% endfor %}
-        </tbody>
+        {% endfor %}
+      </tbody>
     </table>
     <p>Status current as of<br/>{{ timestamp.strftime("%Y-%m-%d %I:%M:%S %p") }}</p>
-</body>
+  </body>
 </html>
