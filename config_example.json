@@ -3,5 +3,6 @@
       "client_id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
       "client_secret": "yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
       "token_refresh_minutes": 5
-    }
+    },
+    "tz": "America/Chicago"
 }

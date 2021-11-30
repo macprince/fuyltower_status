@@ -14,9 +14,6 @@ app = Flask(__name__)
 app.jinja_env.trim_blocks = True
 app.jinja_env.lstrip_blocks = True
 
-os.environ["TZ"] = "America/Chicago"
-time.tzset()
-
 # Load in config file
 config = os.path.abspath(os.path.join(sys.path[0],"config.json"))
 try:
@@ -28,6 +25,9 @@ except IOError:
 
 lnc_client = settings['lockncharge']
 lnc_base_url = "https://api.lockncharge.io/v1"
+
+os.environ["TZ"] = settings['tz']
+time.tzset()
 
 def get_bearer_token():
     global token_data
