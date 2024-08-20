@@ -9,8 +9,8 @@
   <body>
     <h1>{{bay['name']}}</h1>
     {% if user['id']: %}
-    {{user['firstName']}} {{user['lastName']}} ({{user['stationCredentials']['pin']}})<br/>
-    <a href="mailto:{{user['email']}}">{{user['email']}}</a><br/>
+    {{user['name']}} ({{user['stationCredentials']['pin']}})<br/>
+    <a href="mailto:{{user['externalRefId']}}">{{user['externalRefId']}}</a><br/>
     {% else: %}
     No user associated.<br/>
     {% endif %}
