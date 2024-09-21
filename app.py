@@ -83,3 +83,6 @@ def show_bays_admin():
 def show_bay(bayNumber):
     user, bay = get_bay_user(bayNumber)
     return render_template('user.html', user=user, bay=bay)
+
+if __name__ == "__main__":
+    app.run(debug=True)
