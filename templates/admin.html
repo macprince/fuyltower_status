@@ -12,22 +12,20 @@
       <tbody>
         {% for bay in bays: %}
         <tr>
+            {% if not bay['locked']: %}
+            <td title="Open">🟥</td>
+            {% elif bay['offline']: %}
+            <td title="Offline">⬛️</td>
+            {% elif bay['assigned']: %}
+            <td title="In Use">⬜️</td>
+            {% else: %}
+            <td title="Available">🟩</td>
+            {% endif %}
           <td>
             {% if bay['assigned']: %}
             <a href="{{ url_for('show_bay', bayNumber=bay['bayNumber']) }}">{{bay['name']}}</a>
             {% else: %}
             {{bay['name']}}
-            {% endif %}
-          </td>
-          <td>
-            {% if not bay['locked']: %}
-            🟥 Open
-            {% elif bay['offline']: %}
-            ⬛️ Offline
-            {% elif bay['assigned']: %}
-            ⬜️ In Use
-            {% else: %}
-            🟩 Available
             {% endif %}
           </td>
         </tr>
